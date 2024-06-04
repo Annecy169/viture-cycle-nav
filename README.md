@@ -12,10 +12,10 @@ I currently use this on my Sansung using Dex as it gives me an uninteruppted HUD
 Note: This does not work within the browser on the spacewalker app due to restrictive permissions on geolocation data.
 
 ### Landing Page
-![landing page](./Images/landing.png "Landing Page")
+![landing page](./images/landing.png "Landing Page")
 
 ### Navigation Page
-![navigation page](./Images/directions.png "Navigation Page")
+![navigation page](./images/directions.png "Navigation Page")
 
 # Creds
 This sample is generated from @googlemaps/js-samples located at
