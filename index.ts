@@ -41,7 +41,7 @@ function initMap(): void {
 
   const realoader = function () {
     onChangeHandler();
-    setInterval(onChangeHandler,30000); // Refreshes Direction every 30s
+    setInterval(onChangeHandler,10000); // Refreshes Direction every 10s
   };
 
   (document.getElementById("submit-button") as HTMLElement).addEventListener(
@@ -65,7 +65,7 @@ function calculateAndDisplayRoute(
       .route({
         origin: start,
         destination: end,
-        travelMode: google.maps.TravelMode.BICYCLING,
+        travelMode: google.maps.TravelMode.DRIVING,
       })
       .then((response) => {
         console.log(response.routes[0]);
@@ -75,37 +75,37 @@ function calculateAndDisplayRoute(
         } else if (response.routes[0].legs[0].steps[0].maneuver == "") {
           let instructions = response.routes[0].legs[0].steps[0].instructions;
 
-          if (instructions.toLowerCase().indexOf("north-west")) {
+          if (instructions.toLowerCase().includes("north-west")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "north_west";
           }
-          else if (instructions.toLowerCase().indexOf("north-east")) {
+          else if (instructions.toLowerCase().includes("north-east")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "north_east";
           }
-          else if (instructions.toLowerCase().indexOf("south-west")) {
+          else if (instructions.toLowerCase().includes("south-west")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "south_west";
           }
-          else if (instructions.toLowerCase().indexOf("south-east")) {
+          else if (instructions.toLowerCase().includes("south-east")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "south_east";
           }
-          else if (instructions.toLowerCase().indexOf("west")) {
+          else if (instructions.toLowerCase().includes("west")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "west";
           }
-          else if (instructions.toLowerCase().indexOf("east")) {
+          else if (instructions.toLowerCase().includes("east")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "east";
           }
-          else if (instructions.toLowerCase().indexOf("south")) {
+          else if (instructions.toLowerCase().includes("south")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "south";
           }
-          else if (instructions.toLowerCase().indexOf("keep left")) {
+          else if (instructions.toLowerCase().includes("keep left")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "chevron_leftstraight";
           }
-          else if (instructions.toLowerCase().indexOf("keep right")) {
+          else if (instructions.toLowerCase().includes("keep right")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "straightchevron_right";
           }
-          else if (instructions.toLowerCase().indexOf("exit")) {
+          else if (instructions.toLowerCase().includes("exit")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "turn_slight_left";
           }
-          else if (instructions.toLowerCase().indexOf("continue") || instructions.toLowerCase().indexOf("straight") || instructions.toLowerCase().indexOf("north")) {
+          else if (instructions.toLowerCase().includes("continue") || instructions.toLowerCase().includes("straight") || instructions.toLowerCase().includes("north")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "straight";
           }
         };
