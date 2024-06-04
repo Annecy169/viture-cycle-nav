@@ -65,15 +65,21 @@ function calculateAndDisplayRoute(
       .route({
         origin: start,
         destination: end,
-        travelMode: google.maps.TravelMode.DRIVING,
+        travelMode: google.maps.TravelMode.BICYCLING,
       })
       .then((response) => {
         console.log(response.routes[0]);
 
-        if (maneuver.hasOwnProperty(response.routes[0].legs[0].steps[0].maneuver)){
-          (document.getElementById("direction-icon") as HTMLSpanElement).innerText = maneuver[response.routes[0].legs[0].steps[0].maneuver]
-        } else if (response.routes[0].legs[0].steps[0].maneuver == "") {
-          let instructions = response.routes[0].legs[0].steps[0].instructions;
+        let index = 0
+
+        if (response.routes[0].legs[0].steps[0].maneuver == "" && response.routes[0].legs[0].steps[0].instructions.startsWith("Head <b>")) {
+          index = 1
+        }
+          
+        if (maneuver.hasOwnProperty(response.routes[0].legs[0].steps[index].maneuver)){
+          (document.getElementById("direction-icon") as HTMLSpanElement).innerText = maneuver[response.routes[0].legs[0].steps[index].maneuver]
+        } else if (response.routes[0].legs[0].steps[index].maneuver == "") {
+          let instructions = response.routes[0].legs[0].steps[index].instructions;
 
           if (instructions.toLowerCase().includes("north-west")) {
             (document.getElementById("direction-icon") as HTMLSpanElement).innerText = "north_west";
@@ -116,12 +122,12 @@ function calculateAndDisplayRoute(
         (document.getElementById("total-duration") as HTMLSpanElement).innerText = response.routes[0].legs[0].duration?.text || "N/A";
         console.log(response.routes[0].legs[0].end_address);
         (document.getElementById("destination") as HTMLSpanElement).innerText = response.routes[0].legs[0].end_address || "N/A";
-        console.log(response.routes[0].legs[0].steps[0].distance?.text);
-        (document.getElementById("step-distance") as HTMLSpanElement).innerText = response.routes[0].legs[0].steps[0].distance?.text || "N/A";
-        console.log(response.routes[0].legs[0].steps[0].duration?.text);
-        (document.getElementById("step-duration") as HTMLSpanElement).innerText = response.routes[0].legs[0].steps[0].duration?.text || "N/A";
-        console.log(response.routes[0].legs[0].steps[0].instructions);
-        (document.getElementById("step-instructions") as HTMLSpanElement).innerHTML = response.routes[0].legs[0].steps[0].instructions || "N/A";
+        console.log(response.routes[0].legs[0].steps[index].distance?.text);
+        (document.getElementById("step-distance") as HTMLSpanElement).innerText = response.routes[0].legs[0].steps[index].distance?.text || "N/A";
+        console.log(response.routes[0].legs[0].steps[index].duration?.text);
+        (document.getElementById("step-duration") as HTMLSpanElement).innerText = response.routes[0].legs[0].steps[index].duration?.text || "N/A";
+        console.log(response.routes[0].legs[0].steps[index].instructions);
+        (document.getElementById("step-instructions") as HTMLSpanElement).innerHTML = response.routes[0].legs[0].steps[index].instructions || "N/A";
         // // To Render directions on a map
         // directionsRenderer.setDirections(response);
         (document.getElementById("initial-nav") as HTMLDivElement).style.display = "none";
