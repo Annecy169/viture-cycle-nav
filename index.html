@@ -1,0 +1,86 @@
+<!doctype html>
+<!--
+ @license
+ Copyright 2019 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+  <head>
+    <title>Viture Navigation</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+    <script type="module" src="./index.ts"></script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+  </head>
+  <body>
+    <div id="initial-nav">
+      <div id="floating-panel">
+        <strong>Destination:</strong>
+        <input
+          id="destination-input"
+          class="controls"
+          type="text"
+          placeholder="Enter a destination location"
+        />
+        <button id="submit-button">
+          <span class="front">
+            Submit
+          </span>
+        </button>
+      </div>
+      <!-- <div id="container">
+        <div id="map"></div>
+        <div id="sidebar"></div>
+      </div> -->
+      <div style="display: none">
+        <div id="floating-panel">
+          <strong>Destination:</strong>
+          <input
+          id="destination-input"
+          class="controls"
+          type="text"
+          placeholder="Enter a destination location"
+        />
+        </div>
+      </div>
+    </div>
+    <div id="main-nav" style="display:none;">
+      <span id="direction-icon" class="material-symbols-outlined">straight</span>
+      <p>In <span id="step-distance"></span> (<span id="step-duration"></span>)</p>
+      <p><span id="step-instructions"></span></p>
+    </div>
+  </br>
+    <div id="secondary-nav" style="display:none;">
+      <p>Destination: <span id="destination"></span> <span id="total-distance"></span></p>
+      <p>ETA: <span id="total-duration"></span></p>
+    </div>
+
+    <!-- 
+      The `defer` attribute causes the script to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises. See
+      https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=%VITE_GOOGLE_MAPS_API_KEY%&callback=initMap&libraries=places&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
